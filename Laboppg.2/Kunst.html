@@ -6,10 +6,10 @@
     <script>
         const canvas = document.getElementById("myCanvas");
         const ctx = canvas.getContext("2d");
-        //Tabel
+
         let tabel = [];
             let r = 300;
-            let antall = 16;
+            let antall = 360;
             let dv = 2 * Math.PI / antall;
             let v = 0;
             for (i = 0; i < antall; i++) {
@@ -18,6 +18,7 @@
                 tabel[i] = { x: xm, y: ym };
                 v += dv;
             }
+            
         function draw() {
             ctx.fillStyle = "cyan";
             ctx.fillRect(0, 0, 600, 600);
@@ -27,8 +28,42 @@
             }
             ctx.closePath();
             ctx.stroke();
+            
+            ctx.beginPath()
+            for (i = 0; i < antall; i++) {
+                ctx.moveTo(tabel[i].x,tabel[i].y) 
+                ctx.lineTo(tabel[i*2 % antall].x,tabel[i*2 % antall].y)
+            }
+            ctx.closePath();
+            ctx.stroke();
+        
         }
         draw();
+        /*
+        <form>
+            <label for="antall">Antall punkter</label>
+                <select id="antall" onchange="draw()">
+                    <option>16</option>
+                    <option>32</option>
+                    <option>64</option>
+                    <option>128</option>
+                    <option>256</option>
+                    <option>512</option>
+                </select>
+            <label for="k">x til kx</label>
+                <select id="k" onchange="draw()">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                <option>max</option>
+                </select>
+            <br />
+            <br />
+        </form>
+        */
     </script>
 </body>
 </html>

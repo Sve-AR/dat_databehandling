@@ -1,8 +1,22 @@
 <!DOCTYPE html>
 <html>
     <body>
+        <canvas id="myCanvas" width="600" height="600" style="border:1px solid rgb(0, 0, 0)"></canvas>
         <script>
-            
+            const canvas = document.getElementById("myCanvas");
+            const ctx = canvas.getContext("2d");
+
+            ctx.beginPath();
+            ctx.moveTo(150,150);
+            ctx.lineTo(150,450);
+            ctx.lineTo(450,450);
+            ctx.lineTo(450,150);
+            ctx.lineTo(150,150);
+            ctx.closePath;
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
         </script>
     </body>
 </html>
