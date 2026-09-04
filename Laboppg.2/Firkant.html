@@ -1,22 +1,68 @@
 <!DOCTYPE html>
 <html>
-    <body>
-        <canvas id="myCanvas" width="600" height="600" style="border:1px solid rgb(0, 0, 0)"></canvas>
-        <script>
-            const canvas = document.getElementById("myCanvas");
-            const ctx = canvas.getContext("2d");
 
-            ctx.beginPath();
-            ctx.moveTo(150,150);
-            ctx.lineTo(150,450);
-            ctx.lineTo(450,450);
-            ctx.lineTo(450,150);
-            ctx.lineTo(150,150);
-            ctx.closePath;
-            ctx.strokeStyle = "black";
-            ctx.lineWidth = 1;
-            ctx.stroke();
+<body>
+    <canvas id="myCanvas" width="400" height="400" style="border:1px solid rgb(0, 0, 0)"></canvas>
+    <script>
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
 
-        </script>
-    </body>
+        function draw(x, y, p) {
+            let x0 = 0 + x;
+            let y0 = 0 + y;
+            let x1 = 100 + x;
+            let y1 = 0 + y;
+            let x2 = 100 + x
+            let y2 = 100 + y;
+            let x3 = 0 + x;
+            let y3 = 100 + y;
+
+            for (let i = 0; i < 20; i++) {
+                ctx.beginPath();
+                ctx.moveTo(x0, y0);
+                ctx.lineTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.lineTo(x3, y3);
+                ctx.closePath();
+                ctx.strokeStyle = "black";
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                let xg = x0
+                let yg = y0
+                x0 = (x1 - x0) * p + x0
+                y0 = (y1 - y0) * p + y0
+                x1 = (x2 - x1) * p + x1
+                y1 = (y2 - y1) * p + y1
+                x2 = (x3 - x2) * p + x2
+                y2 = (y3 - y2) * p + y2
+                x3 = (xg - x3) * p + x3
+                y3 = (yg - y3) * p + y3
+            }
+        }
+
+        draw(0, 0, 0.9);
+        draw(100, 0, 0.1);
+        draw(200, 0, 0.9);
+        draw(300, 0, 0.1);
+        draw(400, 0, 0.9);
+        draw(0, 100, 0.1);
+        draw(100, 100, 0.9);
+        draw(200, 100, 0.1);
+        draw(300, 100, 0.9);
+        draw(400, 100, 0.1);
+        draw(0, 200, 0.9);
+        draw(100, 200, 0.9);
+        draw(200, 200, 0.1);
+        draw(300, 200, 0.9);
+        draw(400, 200, 0.1);
+        draw(0, 300, 0.9);
+        draw(100, 300, 0.1);
+        draw(200, 300, 0.9);
+        draw(300, 300, 0.1);
+        draw(400, 300, 0.9);
+
+    </script>
+</body>
+
 </html>
