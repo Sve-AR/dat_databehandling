@@ -2,30 +2,98 @@
 <html>
 <body>
 
+<button id="btnHoyre">Flytt høyre</button> <br>
+<button id="btnVenstre">Flytt venstre</button> <br>
+<button id="btnOpp">Flytt opp</button> <br>
+<button id="btnNed">Flytt ned</button> <br>
+<button id="btnRoterV">Roter mot Klokka</button> <br>
+<button id="btnRoterH">Roter med Klokka</button> <br>
+<button id="btnStorre">Større</button> <br>
+<button id="btnMindre">Mindre</button> <br>
+
 <canvas id="myCanvas" width="600" height="600" style="border:1px solid rgb(255, 255, 255)"></canvas>
 
 <script>
 const canvas = document.getElementById("myCanvas");
+const btnHoyre = document.getElementById("btnHoyre");
+const btnVenstre = document.getElementById("btnVenstre");
+const btnOpp = document.getElementById("btnOpp");
+const btnNed = document.getElementById("btnNed");
 const ctx = canvas.getContext("2d");
+
+let polygon = [];
+
+btnHoyre.addEventListener("click", function(e) {
+    for(let i = 0; i < polygon.length; i++){
+        polygon[i].x = polygon[i].x + 10; 
+    }
+    draw();
+});
+btnVenstre.addEventListener("click", function(e) {
+    for(let i = 0; i < polygon.length; i++){
+        polygon[i].x = polygon[i].x - 10; 
+    }
+    draw();
+});
+btnOpp.addEventListener("click", function(e) {
+    for(let i = 0; i < polygon.length; i++){
+        polygon[i].y = polygon[i].y - 10; 
+    }
+    draw();
+});
+btnNed.addEventListener("click", function(e) {
+    for(let i = 0; i < polygon.length; i++){
+        polygon[i].y = polygon[i].y + 10;
+    }
+    draw();
+});
+btnRoterH.addEventListener("click", function(e) {
+    for(let i = 0; i < polygon.length; i++){
+        polygon[i].Math.angle = polygon[i].Math.angle - 45;
+    }
+    draw();
+});
+btnRoterV.addEventListener("click", function(e) {
+    for(let i = 0; i < polygon.length; i++){
+        polygon[i].Math.angle = polygon[i].Math.angle + 45;
+    }
+    draw();
+});
+btnStorre.addEventListener("click", function(e) {
+    for(let i = 0; i < polygon.length; i++){
+        
+    }
+    draw();
+});
+btnMindre.addEventListener("click", function(e) {
+    for(let i = 0; i < polygon.length; i++){
+        
+    }
+    draw();
+});
 
 canvas.addEventListener("mousedown", function(e) {
     const rect = canvas.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
+    polygon.push({x: mouseX, y: mouseY})
+    draw();
 });
-
-let polygon = [];
-
-
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "yellow";
     ctx.fillRect(0,0,600,600);
     ctx.beginPath();
-    if(i < 1){
-        ""
+    let point = polygon [0];
+    ctx.moveTo(point.x, point.y);
+    for(let i = 1; i < polygon.length; i++){
+        point = polygon[i];
+        ctx.lineTo(point.x, point.y);
     }
+    ctx.closePath();
+    ctx.stroke();
+
 }
 
 
