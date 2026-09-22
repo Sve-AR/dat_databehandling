@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="myCanvas" width="600" height="600" style="border:1px solid rgb(255, 255, 255)"></canvas>
+
+<script>
+const canvas = document.getElementById("myCanvas");
+const ctx = canvas.getContext("2d");
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    //Box
+    ctx.fillStyle = "yellow";
+    ctx.fillRect(0,0,600,600);
+    // Square
+    ctx.fillStyle = "white";
+    ctx.fillRect(squareX, squareY, size, size);
+    // Horizontal lines
+    ctx.beginPath();
+    ctx.moveTo(squareX, centerY); // Left side
+    ctx.lineTo(circleX, circleY);
+    ctx.moveTo(circleX, circleY);
+    ctx.lineTo(squareX + size, centerY); // Right side
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    // Circle
+    ctx.beginPath();
+    ctx.arc(circleX, circleY, radius, 0, Math.PI * 2);
+    ctx.strokeStyle = "black";
+    ctx.stroke();
+}
+canvas.addEventListener("mousedown", function(e) {
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const distance = Math.hypot(
+        mouseX - circleX,
+        mouseY - circleY
+    );
+    if (distance <= radius + 5) {
+        dragging = true;
+    }
+});
+
+canvas.addEventListener("mousemove", function(e) {
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const distance = Math.hypot(
+        mouseX - circleX,
+        mouseY - circleY
+    );
+    if (dragging) {
+        circleX = mouseX;
+        circleY = mouseY;
+        canvas.style.cursor = "grabbing";
+        draw();
+    } else if (distance <= radius + 5) {
+        canvas.style.cursor = "grab";
+    } else {
+        canvas.style.cursor = "default";
+    }
+});
+
+canvas.addEventListener("mouseup", function() {
+    dragging = false;
+    circleX = centerX;
+    circleY = centerY;
+    draw();
+});
+draw();
+</script>
+</body>
+</html>
